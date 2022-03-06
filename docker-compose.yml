@@ -12,6 +12,9 @@ services:
       - postgres:/data/postgres
       - "./data:/docker-entrypoint-initdb.d"
     restart: unless-stopped
+    # Uncomment to allow access from the host
+    # ports:
+    #   - "5432:5432"
 
   pgbench:
     build: .
