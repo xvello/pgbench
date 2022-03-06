@@ -1,0 +1,13 @@
+linters:
+  enable:
+    - durationcheck
+    - gocritic
+    - godot
+    - goimports
+    - misspell
+    - nilerr
+    - nilnil
+    - nolintlint
+    - prealloc
+    - predeclared
+    - unconvert

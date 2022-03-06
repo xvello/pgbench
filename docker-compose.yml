@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  timescale:
+    image: docker.io/timescale/timescaledb:2.6.0-pg14
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-homework}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - "./data:/docker-entrypoint-initdb.d"
+    restart: unless-stopped
+
+  pgbench:
+    build: .
+    depends_on:
+      - timescale
+    environment:
+      - "DATABASE_URL=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-changeme}@timescale/${POSTGRES_DB:-homework}"
+    volumes:
+      - "./data/query_params.csv:/query_params.csv"
+
+volumes:
+  postgres:
