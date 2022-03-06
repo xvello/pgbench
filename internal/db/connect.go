@@ -5,6 +5,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/jackc/pgconn"
@@ -27,9 +28,13 @@ func WaitFor(ctx context.Context, connect ConnectFunc) error {
 	ticker := time.NewTicker(retryWaitDuration)
 	defer ticker.Stop()
 	for {
-		if c, err := connect(ctx); err == nil {
+		c, err := connect(ctx)
+		if err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+		} else {
 			return c.Close(ctx)
 		}
+
 		select {
 		case <-ctx.Done():
 			return fmt.Errorf("database unavailable")

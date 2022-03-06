@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"os"
 	"text/template"
 	"time"
 
@@ -75,7 +76,7 @@ func ReadResults(concurrency uint32, c <-chan Result) *Report {
 			stats.QueriesPerWorker[r.Worker]++
 		}
 		if r.Err != nil {
-			_ = fmt.Errorf("execution error: %s", r.Err)
+			_, _ = fmt.Fprintf(os.Stderr, "execution error: %s\n", r.Err)
 			stats.QueriesErr++
 			continue
 		}
