@@ -70,7 +70,7 @@ Queries per worker: [5 3 3 3]
 Completed queries:  12
 Failed queries:     2 (1% error rate)
 
-Query performance:
+Measured query latency:
   Min:    1.123 ms
   Mean:   6.500 ms
   Median: 6.000 ms

@@ -20,7 +20,7 @@ Queries per worker: {{ printf "%v" .QueriesPerWorker }}
 Completed queries:  {{ .QueriesOk }}
 Failed queries:     {{ .QueriesErr }} ({{ errorRate . }}% error rate)
 
-Query performance:
+Measured query latency:
   Min:    {{ formatMs .Min }}
   Mean:   {{ formatMs .Mean }}
   Median: {{ formatMs .Median }}
